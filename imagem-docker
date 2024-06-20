@@ -1,0 +1,10 @@
+docker run -it -p 123:123 ubuntu:22.04 tail -f /dev/null
+
+    1  apt update
+    2  apt install ntp vim
+    3  vi /etc/ntp.conf 
+    4  update-rc.d ntp defaults
+    5  service --status-all
+    6  service ntp start
+    7  vi ntpq_monitor.sh
+    9  chmod +x ntpq_monitor.sh
