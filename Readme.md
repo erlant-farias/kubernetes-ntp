@@ -12,7 +12,7 @@
 - kubectl create ns kube-ntp
 
 # Criação do Deployment:
-
+```bash
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -34,11 +34,11 @@ spec:
         args: ["./ntpq_monitor.sh"]
         ports:
         - containerPort: 123
-
+```
 - kubectl apply -f ntp-server.yml 
 
 # Criação do Service
-
+```bash
 apiVersion: v1
 kind: Service
 metadata:
@@ -53,10 +53,10 @@ spec:
     targetPort: 123     
   type: LoadBalancer
 
-
+```
 - kubectl apply -f ntp-svc.yml 
 # Criação do Cliente de teste
-
+```bash
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -84,7 +84,7 @@ spec:
           requests:
             memory: "128Mi"
             cpu: "100m"
-
+```
 kubectl apply -f client-ntp.yml
 
 ## Comandos para teste:

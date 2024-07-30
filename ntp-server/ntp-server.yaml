@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ntp-server-deployment
+  namespace: kube-ntp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: ntp-server
+  template:
+    metadata:
+      labels:
+        app: ntp-server
+    spec:
+      containers:
+      - name: ntp-server
+        image: erlantfarias/ntp-server:1.0.0
+        args: ["./ntpq_monitor.sh"]
+        ports:
+        - containerPort: 123
+
