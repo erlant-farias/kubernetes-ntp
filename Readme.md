@@ -9,7 +9,10 @@
 
 
 # Criação do Namespace:
-- kubectl create ns kube-ntp
+
+```bash
+kubectl create ns kube-ntp
+```
 
 # Criação do Deployment:
 ```bash
@@ -35,7 +38,10 @@ spec:
         ports:
         - containerPort: 123
 ```
-- kubectl apply -f ntp-server.yml 
+
+```bash
+kubectl apply -f ntp-server.yml 
+```
 
 # Criação do Service
 ```bash
@@ -52,10 +58,13 @@ spec:
     port: 123
     targetPort: 123     
   type: LoadBalancer
-
 ```
-- kubectl apply -f ntp-svc.yml 
+```bash
+kubectl apply -f ntp-svc.yml 
+```
+
 # Criação do Cliente de teste
+
 ```bash
 apiVersion: apps/v1
 kind: Deployment
@@ -85,13 +94,25 @@ spec:
             memory: "128Mi"
             cpu: "100m"
 ```
+
+```bash
 kubectl apply -f client-ntp.yml
+```
+
 
 ## Comandos para teste:
+```bash
 kubectl exec -n kube-ntp -it ntp-server-deployment-XXXXXXXXXX -- ntpq -p
+```
+```bash
 kubectl logs -n kube-ntp ntp-client-xxxxxxxxxxxx -f
+```
 
-
-na vm:
+## Na VM:
+```bash
 apt install ntpdate
+```
+
+```bash
 ntpdate -q ntp-server-service.kube-ntp.svc.cluster.local
+```

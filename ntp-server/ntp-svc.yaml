@@ -10,4 +10,4 @@ spec:
   - protocol: UDP
     port: 123
     targetPort: 123
-  type: LoadBalancer
+  type: NodePort
