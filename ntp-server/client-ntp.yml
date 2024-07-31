@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ntp-client
+  namespace: kube-ntp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ntp-client
+  template:
+    metadata:
+      labels:
+        app: ntp-client
+    spec:
+      containers:
+      - name: ntp-client
+        image: ubuntu
+        command: ["/bin/bash"]
+        args: ["-c", "apt-get update && apt-get install -y ntpdate && while true; do ntpdate -q ntp-server-service.kube-ntp.svc.cluster.local; sleep 60; done"]
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "250m"
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
